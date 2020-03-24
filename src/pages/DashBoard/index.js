@@ -1,12 +1,10 @@
 import React from 'react';
-import {  makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import ControlPointIcon from '@material-ui/icons/ControlPoint';
 import AssignmentLateIcon from '@material-ui/icons/AssignmentLate';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
-import {logout} from '../../services/AuthService';
 import '../../assets/css/zeplin.css';
-
 
 const useStyles = makeStyles(theme => ({
   Addcard: {
@@ -34,36 +32,30 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-
 const DashBoard = (props) => {
   const classes = useStyles();
 
-  return (<div className={classes.cardContainer}>
-            <div className={classes.cards}>
-
-              <div className={classes.Addcard} onClick={()=>props.setValue(2)} >
-                <ControlPointIcon fontSize="large" style={{ color: "white" }} />
-                <div className="card">Add new card</div>
-              </div>
-
-              <div className="assign" onClick={()=>props.setValue(3)}>
-                <AssignmentIndIcon fontSize="large" style={{ color: "white" }}  />
-                <div className="card">Assign Card</div>
-              </div>
-
-              <div className="block" onClick={()=>props.setValue(3)}>
-                <AssignmentLateIcon fontSize="large" style={{ color: "white" }} />
-                <div className="card">Block a card</div>
-              </div>
-
-              <div className="extend" onClick={()=>props.setValue(2)}>
-                <CalendarTodayIcon fontSize="large" style={{ color: "white" }} />
-                <div className="card">Remove/extend</div>
-              </div>
-            </div>
-
-
-          </div>
+  return (
+    <div className={classes.cardContainer}>
+      <div className={classes.cards}>
+        <div className={classes.Addcard} onClick={() => props.setValue(2)} >
+          <ControlPointIcon fontSize="large" style={{ color: "white" }} />
+          <div className="card">Add new card</div>
+        </div>
+        <div className="assign" onClick={() => props.setValue(3)}>
+          <AssignmentIndIcon fontSize="large" style={{ color: "white" }} />
+          <div className="card">Assign Card</div>
+        </div>
+        <div className="block" onClick={() => props.setValue(3)}>
+          <AssignmentLateIcon fontSize="large" style={{ color: "white" }} />
+          <div className="card">Block a card</div>
+        </div>
+        <div className="extend" onClick={() => props.setValue(2)}>
+          <CalendarTodayIcon fontSize="large" style={{ color: "white" }} />
+          <div className="card">Remove/extend</div>
+        </div>
+      </div>
+    </div>
   )
 }
 

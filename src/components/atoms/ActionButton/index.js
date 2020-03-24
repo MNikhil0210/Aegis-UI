@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Fab, Divider } from '@material-ui/core';
+import { Fab } from '@material-ui/core';
 const useStyles = makeStyles(theme => ({
     actionButton: {
         background: '#9ea0a5',

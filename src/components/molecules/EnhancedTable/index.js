@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -6,12 +6,10 @@ import TableContainer from '@material-ui/core/TableContainer';
 import { makeStyles } from '@material-ui/core/styles';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import { Fab, Divider } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import AssignCardDialog from '../../organisms/AssignCardDialog';
 import EnhancedTableHeadUsers from '../EnhancedTableHeadUsers';
 import ActionButton from '../../atoms/ActionButton';
-
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -23,45 +21,6 @@ const useStyles = makeStyles(theme => ({
     },
     table: {
         minWidth: 750,
-    },
-    visuallyHidden: {
-        border: 0,
-        clip: 'rect(0 0 0 0)',
-        height: 1,
-        margin: -1,
-        overflow: 'hidden',
-        padding: 0,
-        position: 'absolute',
-        top: 20,
-        width: 1,
-    },
-    actionButton: {
-        background: '#9ea0a5',
-        color: '#fff',
-        width: '40px',
-        height: '30px'
-    },
-    disableBoxShadow: {
-        boxShadow: 'none'
-    },
-    dialogWidth: {
-        width: '560px'
-    },
-    tableColumnHeading: {
-        width: '170px',
-        height: '18px',
-        fontFamily: 'Roboto',
-        fontSize: '12px',
-        fontWeight: 500,
-        fontStretch: 'normal',
-        fontStyle: 'normal',
-        lineHeight: 1.56,
-        letterSpacing: 'normal',
-        color: '#9ea0a5',
-    },
-    dialog: {
-        width: '552px',
-        height: '352px',
     },
 }));
 
@@ -91,7 +50,6 @@ function stableSort(array, comparator) {
     return stabilizedThis.map(el => el[0]);
 }
 
-
 export default function EnhancedTable(props) {
     const classes = useStyles();
     const [order, setOrder] = React.useState('asc');
@@ -119,11 +77,9 @@ export default function EnhancedTable(props) {
         setOrderBy(property);
     };
 
-
     const handleClick = (event, cardId) => {
         const selectedIndex = selected.indexOf(cardId);
         let newSelected = [];
-
         if (selectedIndex === -1) {
             newSelected = newSelected.concat(selected, cardId);
         } else if (selectedIndex === 0) {
@@ -173,8 +129,6 @@ export default function EnhancedTable(props) {
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                 .map((row, index) => {
                                     const isItemSelected = isSelected(row.cardId);
-                                    const labelId = `enhanced-table-checkbox-${index}`;
-
                                     return (
                                         <TableRow
                                             hover
@@ -182,28 +136,17 @@ export default function EnhancedTable(props) {
                                             aria-checked={isItemSelected}
                                             key={row.cardId}
                                             style={{ height: '70px' }}
-
-                                            
                                         >
                                             <TableCell></TableCell>
-                                            {Object.keys(row).map( (data,idx)=>{
-                                                if(idx===0){
-                                                    return <TableCell component="th" scope="row" padding="none" >{row[data]}</TableCell>
+                                            {Object.keys(row).map((data, idx) => {
+                                                if (idx === 0) {
+                                                    return <TableCell scope="row" padding="default" >{row[data]}</TableCell>
                                                 }
-                                                else if(data==="action"){
-                                                    return  <TableCell align="right"><ActionButton row={row} handleClickOpen={handleClickOpen}/></TableCell>
+                                                else if (data === "action") {
+                                                    return <TableCell align="left"><ActionButton row={row} handleClickOpen={handleClickOpen} /></TableCell>
                                                 }
-
-                                               return <TableCell align="right">{row[data]}</TableCell>
+                                                return <TableCell align="left">{row[data]}</TableCell>
                                             })}
-                                         
-                                            {/* <TableCell component="th" id={labelId} scope="row" padding="none">
-                                                {row.hardwareId}
-                                            </TableCell>
-                                            <TableCell align="right">{row.assignDate}</TableCell>
-                                            <TableCell align="right">{row.status}</TableCell>
-                                            <TableCell align="right">{row.modifiedBy}</TableCell>
-                                            <TableCell align="right"><Fab classes={{ root: classes.disableBoxShadow }} onClick={()=>handleClickOpen(row)} className={classes.actionButton}>{row.status.charAt(0) === 'B' ? 'UB' : 'B'}</Fab></TableCell> */}
                                         </TableRow>
                                     );
                                 })}
@@ -220,8 +163,7 @@ export default function EnhancedTable(props) {
                     onChangeRowsPerPage={handleChangeRowsPerPage}
                 />
             </Paper>
-            {/* <BlockDialog open={open} cardId={cardId} empName={empName} handleClose={handleClose} /> */}
-            <AssignCardDialog  open={open} cardId={cardId} empName={empName} handleClose={handleClose}/>
+            <AssignCardDialog open={open} cardId={cardId} empName={empName} handleClose={handleClose} />
         </div>
     );
 }

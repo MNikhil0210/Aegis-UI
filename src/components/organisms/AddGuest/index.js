@@ -1,10 +1,13 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { TextField, FormControlLabel, Radio, FormControl, NativeSelect } from '@material-ui/core';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import InputBase from '@material-ui/core/InputBase';
-import {postUserToDB} from '../../../services/UserMgmtService'
+import { postUserToDB } from '../../../services/UserMgmtService';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/material.css';
+
 const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
@@ -72,20 +75,29 @@ export default function AddGuest() {
     const classes = useStyles();
     const [type, setType] = useState("");
     const [startDate, handleStartDateChange] = useState(new Date());
-    const [name,setName]=useState("");
+    const [name, setName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [fullName, setFullName] = useState("");
+    const [phone, setPhone] = useState("");
     const [endDate, handleEndDateChange] = useState(new Date());
     const [cardNo, setCardNo] = useState();
-    const addUser=async ()=>{
-        postUserToDB(cardNo,name,startDate,endDate,type)
+    const addUser = async () => {
+        postUserToDB(cardNo, fullName, startDate, endDate, type, phone)
     }
 
     const handleName = event => {
         setName(event.target.value);
     }
+    const handleLastName = event => {
+        setLastName(event.target.value);
+        setFullName(name + " " + event.target.value);
+    }
     const handleChange = event => {
         setType(event.target.value);
     }
-
+    const handlePhone = event => {
+        setPhone(event);
+    }
     const handleCard = event => {
         setCardNo(event.target.value);
     }
@@ -95,12 +107,28 @@ export default function AddGuest() {
             <div className={classes.names}>
                 <div className={classes.text}>NAME:</div>
                 <TextField
-                    label="Enter Name"
+                    style={{ marginRight: '10px' }}
+                    label="FirstName"
                     margin="normal"
                     variant="outlined"
                     value={name}
                     onChange={handleName}
-
+                />
+                <TextField
+                    label="LastName"
+                    margin="normal"
+                    variant="outlined"
+                    value={lastName}
+                    onChange={handleLastName}
+                />
+            </div>
+            <div className={classes.names}>
+                <div className={classes.text}>PHONE:</div>
+                <PhoneInput
+                    country={'in'}
+                    onlyCountries={['in', 'gb']}
+                    value={phone}
+                    onChange={handlePhone}
                 />
             </div>
             <div className={classes.radioButton}>
@@ -114,7 +142,7 @@ export default function AddGuest() {
                     checked={type === 'Contractor'}
                     value="Contractor"
                     onChange={handleChange}
-                    control={<Radio classes={{ colorSecondary: classes.radio, checked: classes.radio }} />} label="Contractors"
+                    control={<Radio classes={{ colorSecondary: classes.radio, checked: classes.radio }} />} label="Contractor"
                 />
             </div>
             <div className={classes.names}>
@@ -124,7 +152,7 @@ export default function AddGuest() {
                         disableToolbar
                         disablePast
                         variant="inline"
-                        format="dd/MM/yyyy"
+                        format="yyyy/MM/dd"
                         margin="normal"
                         id="date-picker-inline"
                         label="STARTS"
@@ -138,7 +166,7 @@ export default function AddGuest() {
                         disableToolbar
                         disablePast
                         variant="inline"
-                        format="MM/dd/yyyy"
+                        format="yyyy/MM/dd"
                         margin="normal"
                         id="date-picker-inline"
                         label="ENDS"

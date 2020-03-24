@@ -1,7 +1,5 @@
 import React from 'react';
 import Login from './pages/Login';
-import DashBoard from './pages/DashBoard';
-import PrivateRoute from './components/molecules/PrivateRouter';
 import { Switch, Route } from 'react-router-dom'
 import Skeleton from './pages/Skeleton';
 import { Provider } from 'react-redux';
@@ -14,7 +12,6 @@ function App() {
         <Switch>
           <Route exact path='/load' component={Loading} />
           <Route exact path='/dashboard' component={() => <Skeleton />} />
-          {/* <Route exact path='/userMgmt' component={() => <Skeleton />} /> */}
           <Route exact path='/' component={Login} />
         </Switch>
       </Provider>

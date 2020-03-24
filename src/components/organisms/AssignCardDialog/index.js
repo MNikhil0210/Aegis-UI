@@ -41,7 +41,7 @@ const BootstrapInput = withStyles(theme => ({
     },
 }))(InputBase);
 
-export default  function AssignCardDialog(props){
+export default function AssignCardDialog(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
     const [cardNo, setCardNo] = useState();
@@ -54,7 +54,7 @@ export default  function AssignCardDialog(props){
         setTextColor('#fff');
     }
 
-    const assignCardToUser=()=>{
+    const assignCardToUser = () => {
         props.handleClose()
     }
 
@@ -92,7 +92,7 @@ export default  function AssignCardDialog(props){
                     <Button disableElevation onClick={props.handleClose} variant="contained">
                         Cancel
                     </Button>
-                    <Button disableElevation style={{background: color, color: textColor}} onClick={assignCardToUser} variant="contained">
+                    <Button disableElevation style={{ background: color, color: textColor }} onClick={assignCardToUser} variant="contained">
                         Save
                     </Button>
                 </DialogActions>

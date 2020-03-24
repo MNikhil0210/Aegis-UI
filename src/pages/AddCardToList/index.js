@@ -1,16 +1,11 @@
 import React, { useState } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
-import { Toolbar, FormControl, NativeSelect, Checkbox, FormControlLabel } from '@material-ui/core';
+import { FormControl, NativeSelect, Checkbox, FormControlLabel } from '@material-ui/core';
 import InputBase from '@material-ui/core/InputBase';
 import { postCardToDB } from '../../services/CardMgmtService';
-import CardManagement from '../CardManagement';
 
 const useStyles = makeStyles(theme => ({
-    orientation: {
-        display: 'flex',
-        height: '100%'
-    },
     holder: {
         width: '1110px',
         height: '935px',
@@ -65,31 +60,13 @@ const GreenCheckbox = withStyles({
 })(props => <Checkbox color="default" {...props} />);
 
 const BootstrapInput = withStyles(theme => ({
-    root: {
-        'label + &': {
-            marginTop: theme.spacing(3),
-        },
-    },
     input: {
         borderRadius: 4,
         position: 'relative',
-        backgroundColor: theme.palette.background.paper,
         border: '1px solid #ced4da',
         fontSize: 16,
         padding: '10px 26px 10px 12px',
         transition: theme.transitions.create(['border-color', 'box-shadow']),
-        fontFamily: [
-            '-apple-system',
-            'BlinkMacSystemFont',
-            '"Segoe UI"',
-            'Roboto',
-            '"Helvetica Neue"',
-            'Arial',
-            'sans-serif',
-            '"Apple Color Emoji"',
-            '"Segoe UI Emoji"',
-            '"Segoe UI Symbol"',
-        ].join(','),
         '&:focus': {
             borderRadius: 4,
             borderColor: '#80bdff',
@@ -99,19 +76,13 @@ const BootstrapInput = withStyles(theme => ({
 }))(InputBase);
 
 export default function AddCardToList(props) {
-
     const classes = useStyles();
     const [cardNo, setCardNo] = useState("");
-    
     const [name, setName] = useState("");
     const [checked, setChecked] = React.useState(false);
-    const [page, setPage] = useState("");
-
     const handleChecked = event => {
         setChecked(event.target.checked);
     };
-  
-    
 
     const handleChangeName = event => {
         setName(event.target.value);
@@ -121,73 +92,64 @@ export default function AddCardToList(props) {
         setCardNo(event.target.value);
     }
 
-    const addCardToSystem=async ()=>{
-        const card=await postCardToDB(cardNo, name);
-         props.setRender(!props.render);
-         props.addCard(false);
-         props.setOpen(true);
-
+    const addCardToSystem = async () => {
+        await postCardToDB(cardNo, name);
+        props.setRender(!props.render);
+        props.addCard(false);
+        props.setOpen(true);
     }
-
-
-
     return (
-       
-          
-              
-                    
-                        <div className={classes.holder}>
-                            <div className={classes.row}>
-                                <div className={classes.selectCardText}>SELECT THE CARD:</div>
-                               
-                                <FormControl className={classes.margin}>
-                                    <NativeSelect
-                                        id="demo-customized-select-native"
-                                        value={cardNo}
-                                        onChange={handleAge}
-                                        input={<BootstrapInput />}
-                                    >
-                                        <option value="" >Select Any</option>
-                                        <option value={'CTPO130'}>CTPO130</option>
-                                        <option value={'CTPO131'}>CTPO131</option>
-                                        <option value={'CTPO132'}>CTPO132</option>
-                                        <option value={'CTPO136'}>CTPO136</option>
-                                        <option value={'CTPO133'}>CTPO133</option>
-                                        <option value={'CTPO134'}>CTPO134</option>
-                                        <option value={'CTPO135'}>CTPO135</option>
-                                    </NativeSelect>
-                                </FormControl>
-                            </div>
-                            <FormControlLabel
-                                className={classes.checkbox}
-                                control={
-                                    <GreenCheckbox
-                                        checked={checked}
-                                        onChange={handleChecked}
-                                        value="checkedG"
-                                    />
-                                }
-                                label="Assign to Employee"
-                            />
-                            {checked ?
-                                <div className={classes.row}>
-                                    <div className={classes.selectCardText}>SELECT THE EMPLOYEE:</div>
-                                    <FormControl className={classes.marginEmp}>
-                                        <NativeSelect
-                                            id="demo-customized-select-native"
-                                            value={name}
-                                            onChange={handleChangeName}
-                                            input={<BootstrapInput />}
-                                        >
-                                            <option value="" >Select Any</option>
-                                            <option value={'John'}>John</option>
-                                            <option value={'Dave'}>Dave</option>
-                                            <option value={'Bravo'}>Bravo</option>
-                                        </NativeSelect>
-                                    </FormControl>
-                                </div>
-                                : null}
-                            <button className={classes.saveButton} onClick={() => addCardToSystem() }>Save</button>
-                        </div>
-     )
+        <div className={classes.holder}>
+            <div className={classes.row}>
+                <div className={classes.selectCardText}>SELECT THE CARD:</div>
+                <FormControl className={classes.margin}>
+                    <NativeSelect
+                        id="demo-customized-select-native"
+                        value={cardNo}
+                        onChange={handleAge}
+                        input={<BootstrapInput />}
+                    >
+                        <option value="" >Select Any</option>
+                        <option value={'CTPO130'}>CTPO130</option>
+                        <option value={'CTPO131'}>CTPO131</option>
+                        <option value={'CTPO132'}>CTPO132</option>
+                        <option value={'CTPO136'}>CTPO136</option>
+                        <option value={'CTPO133'}>CTPO133</option>
+                        <option value={'CTPO134'}>CTPO134</option>
+                        <option value={'CTPO135'}>CTPO135</option>
+                    </NativeSelect>
+                </FormControl>
+            </div>
+            <FormControlLabel
+                className={classes.checkbox}
+                control={
+                    <GreenCheckbox
+                        checked={checked}
+                        onChange={handleChecked}
+                        value="checkedG"
+                    />
+                }
+                label="Assign to Employee"
+            />
+            {checked ?
+                <div className={classes.row}>
+                    <div className={classes.selectCardText}>SELECT THE EMPLOYEE:</div>
+                    <FormControl className={classes.marginEmp}>
+                        <NativeSelect
+                            id="demo-customized-select-native"
+                            value={name}
+                            onChange={handleChangeName}
+                            input={<BootstrapInput />}
+                        >
+                            <option value="" >Select Any</option>
+                            <option value={'John'}>John</option>
+                            <option value={'Dave'}>Dave</option>
+                            <option value={'Bravo'}>Bravo</option>
+                        </NativeSelect>
+                    </FormControl>
+                </div>
+                : null}
+            <button className={classes.saveButton} onClick={() => addCardToSystem()}>Save</button>
+        </div>
+    )
 }

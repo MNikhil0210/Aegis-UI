@@ -1,7 +1,6 @@
 
 import {  GRANT_TYPE, REDIRECT_URI, urls, API_AUDIENCE } from '../../utils/constants'
 import request from 'request';
-import auth0 from 'auth0-js';
 var jwtDecode = require('jwt-decode');
 
 let isAuthenticated=false
@@ -23,7 +22,6 @@ export const getAccessToken = (authCode) => {
         request(options,  (error, response, body)=> {
             if(error) reject(error)
             else resolve(JSON.parse(body))
-
         });
     })
 }
@@ -32,7 +30,6 @@ export const googleAuthenticate = () => {
     const url = `${urls.authorizeUrl}?response_type=code&client_id=${process.env.REACT_APP_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=openid%20profile%20email%20user_metadata%20picture&state=STAThE&connection=google-oauth2&audience=${API_AUDIENCE}`
     window.location = url
 }
-
 
 export const getProfileInfo=async (setProfile)=>{
     let queryString = window.location.search;
