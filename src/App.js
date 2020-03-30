@@ -1,8 +1,8 @@
 import React from 'react';
 import Login from './pages/Login';
 import { Switch, Route } from 'react-router-dom'
-import Skeleton from './pages/Skeleton';
 import { Provider } from 'react-redux';
+import Skeleton from './pages/Skeleton';
 import store from './store';
 import Loading from './pages/Loading';
 function App() {

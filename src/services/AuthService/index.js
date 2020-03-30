@@ -1,5 +1,5 @@
 
-import {  GRANT_TYPE, REDIRECT_URI, urls, API_AUDIENCE } from '../../utils/constants'
+import {  GRANT_TYPE, REDIRECT_URI, urls, API_AUDIENCE } from '../../utils/constants.js';
 import request from 'request';
 var jwtDecode = require('jwt-decode');
 
@@ -37,10 +37,8 @@ export const getProfileInfo=async (setProfile)=>{
         const urlParams = new URLSearchParams(queryString);
         let authCode = urlParams.get('code');
         const userInfo = await getAccessToken(authCode);
-        console.log(userInfo)
         const token = jwtDecode(userInfo.id_token)
         isAuthenticated=true;
-        console.log(token.given_name)
         setProfile(token);
       }   
 }

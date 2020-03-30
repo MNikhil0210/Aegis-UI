@@ -6,7 +6,6 @@ export const csvToObject = (bufferString, failedImport) => {
     for (var i = 1; i < arr.length; i++) {
         var data = arr[i].split(',');
         if (data.length < headers.length && data.length !== 1) {
-            console.log(data.length, data);
             failedImport(true)
             return null;
         }

@@ -75,7 +75,6 @@ const CardManagement = (props) => {
     cards.map(data => {
       records.push(createData(data.hardwareId, data.modifiedAt, data.status, data.userId, "B"))
     })
-    console.log(records)
     setRows(records);
   }
   const handleClose = (event, reason) => {

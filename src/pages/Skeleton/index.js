@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import '../../assets/css/zeplin.css';
 import AppBar from '../../components/molecules/AegisAppBar';
@@ -6,10 +6,8 @@ import SideBar from '../../components/molecules/SideBar';
 import DashBoard from '../DashBoard';
 import { useSelector, useDispatch } from "react-redux";
 import CardManagement from '../CardManagement';
-import AddCardToList from '../AddCardToList';
 import UserManagement from '../UserManagement';
-import ExtendOrRemoveUser from '../ExtendOrRemoveUser';
-import { getAllCards } from '../../services/CardMgmtService';
+
 const useStyles = makeStyles(theme => ({
   orientation: {
     display: 'flex',
@@ -27,20 +25,10 @@ const Skeleton = (props) => {
     setValue(newValue);
   };
 
-  // const retrieveCardsInfo=async ()=>{
-  //   const cards=await getAllCards()
-  //   dispatch({type:'ADD_CARDS',payload:cards})
-  // }
-
-  // useEffect(()=>{
-  //   retrieveCardsInfo()
-  // },[])
   const mapper = new Map([
     [1, <DashBoard value={value} setValue={setValue} />],
     [2, <div> <UserManagement /></div>],
     [3, <div><CardManagement value={value} setValue={setValue} /></div>],
-    [4, <div><AddCardToList /></div>],
-    [5, <div><ExtendOrRemoveUser /></div>],
   ]);
 
   return (
@@ -50,7 +38,6 @@ const Skeleton = (props) => {
         <SideBar value={value} handleChange={handleChange} />
         <div className="container">
           <div className="base">
-            {/* Skeleton input */}
             {mapper.get(value)}
           </div>
         </div>
